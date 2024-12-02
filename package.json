@@ -17,7 +17,8 @@
     "commands": [
       {
         "command": "ai-commit-vscode.generateCommitMessage",
-        "title": "Generate Commit Message"
+        "title": "Generate Commit Message",
+        "icon": "$(sparkle)"
       }
     ],
     "configuration": {
@@ -45,7 +46,8 @@
         {
           "when": "scmProvider == git",
           "command": "ai-commit-vscode.generateCommitMessage",
-          "group": "navigation"
+          "group": "navigation",
+          "icon": "$(sparkle)"
         }
       ]
     }
