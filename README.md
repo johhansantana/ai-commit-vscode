@@ -62,3 +62,7 @@ You can customize this prompt in the settings to match your team's commit messag
 2. Run `npm install`
 3. Open in VS Code
 4. Press F5 to start debugging
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
