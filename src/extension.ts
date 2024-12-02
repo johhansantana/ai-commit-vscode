@@ -24,6 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
             // Get the API key from settings
             const config = vscode.workspace.getConfiguration('aiCommit');
             const apiKey = config.get<string>('openRouterApiKey');
+            const model = config.get<string>('model') || 'mistralai/mistral-7b-instruct';
+            const promptTemplate = config.get<string>('prompt') || 'Given these staged changes:\n{changes}\n\nGenerate a commit message that follows these rules:\n1. Start with a type (feat/fix/docs)\n2. Keep it under 50 characters\n3. Use imperative mood';
             
             if (!apiKey) {
                 vscode.window.showErrorMessage('Please set your OpenRouter API key in settings');
@@ -39,10 +41,10 @@ export function activate(context: vscode.ExtensionContext) {
                 try {
                     // Call OpenRouter API
                     const response = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
-                        model: "mistralai/mistral-7b-instruct",
+                        model: model,
                         messages: [{
                             role: "user",
-                            content: `Generate a concise and descriptive commit message for the following changes:\n\n${changes}`
+                            content: promptTemplate.replace('{changes}', changes)
                         }],
                     }, {
                         headers: {
@@ -56,12 +58,12 @@ export function activate(context: vscode.ExtensionContext) {
                     // Set the commit message in the input box
                     repository.inputBox.value = commitMessage;
                     
-                } catch (error) {
+                } catch (error: any) {
                     vscode.window.showErrorMessage('Failed to generate commit message: ' + error.message);
                 }
             });
 
-        } catch (error) {
+        } catch (error: any) {
             vscode.window.showErrorMessage('Error: ' + error.message);
         }
     });

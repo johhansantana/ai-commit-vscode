@@ -20,6 +20,26 @@
         "title": "Generate Commit Message"
       }
     ],
+    "configuration": {
+      "title": "AI Commit",
+      "properties": {
+        "aiCommit.openRouterApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for OpenRouter"
+        },
+        "aiCommit.model": {
+          "type": "string",
+          "default": "mistralai/mistral-7b-instruct",
+          "description": "The AI model to use for generating commit messages. Example: anthropic/claude-3-sonnet, mistralai/mistral-7b-instruct, anthropic/claude-2, google/gemini-pro"
+        },
+        "aiCommit.prompt": {
+          "type": "string",
+          "default": "Given these staged changes:\n{changes}\n\nGenerate a commit message that follows these rules:\n1. Start with a type (feat/fix/docs)\n2. Keep it under 50 characters\n3. Use imperative mood",
+          "description": "Custom prompt for generating commit messages. Use {changes} as a placeholder for the git diff."
+        }
+      }
+    },
     "menus": {
       "scm/title": [
         {
